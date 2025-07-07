@@ -1,30 +1,53 @@
-# 🔐 Simple Password Encryption & Decryption in C++
+#include <iostream>
+using namespace std;
 
-This console-based C++ application implements a **custom symmetric encryption algorithm** that modifies each character in a password string using a 4-digit parameter. The same parameter is used to decrypt the string back to its original form.
+string encyrptPassword(string password, int encyrptParameter) {
+	int first = encyrptParameter / 100;
+	int second = encyrptParameter % 100;
+	//if parameter is 4356,first is 43 and the second is 56
 
----
+	string encyrptedPassword = {};
+	size_t size = password.length();
+	for (int i = 0; i < size / 2; i++) {
+		char element = (password[i] + first);
+		encyrptedPassword += element;
 
-## 🎯 Features
+	}
+	for (int j = size / 2; j < size; j++) {
+		encyrptedPassword += (password[j] + second);
+	}
+	return encyrptedPassword;
+}
 
-- Encrypts a password using basic ASCII shifting
-- Decrypts the encrypted password using the same parameter
-- Splits the password into two halves for two-part encryption
-- Accepts a 4-digit integer (e.g., `1423`) as the encryption key
+string decyrptPassword(string password, int encyrptParameter) {
+	int first = encyrptParameter / 100;
+	int second = encyrptParameter % 100;
+	string decyrptPassword = {};
+	size_t size = password.length();
+	for (int i = 0; i < size / 2; i++) {
+		decyrptPassword += (password[i] - first);
+	}
+	for (int j = size / 2; j < size; j++) {
+		decyrptPassword += (password[j] - second);
+	}
+	return decyrptPassword;
+}
 
----
+int main() {
+	string password;
+	int parameter;
+	cout << "Enter password: ";
+	cin >> password;
+	do {
+		cout << "Enter 4 digit parameter(XXXX) such as 1423" << endl;
+		cout << "Encyrpt parameter: ";
+		cin >> parameter;
 
-## 🧠 How It Works
+	} while (!(parameter > 1000 && parameter < 10000));
+	string encyrptedPass = encyrptPassword(password, parameter);
+	cout << "Encyrpted password: " << encyrptedPass << endl;
+	string decyrptedPass = decyrptPassword(encyrptedPass, parameter);
+	cout << "Decyrpted password: " << decyrptedPass;
 
-- The 4-digit parameter is split:
-  - `first = param / 100` → used for the **first half** of the password
-  - `second = param % 100` → used for the **second half**
-- Each character's ASCII value is shifted by `+first` or `+second`
-- Decryption reverses this with `-first` and `-second`
-
----
-
-## 🛠️ Build and Run
-
-```bash
-g++ -o passcrypt PasswordEncryptor.cpp
-./passcrypt
+	return 0;
+}
