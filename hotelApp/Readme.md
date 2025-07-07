@@ -23,14 +23,14 @@ This C++ console application simulates a simple **hotel and food service managem
 
 ## 📦 Menu Options
 
-1 - Rooms
-2 - Pasta
-3 - Burger
-4 - Noodles
-5 - Shake
-6 - Chicken-roll
-7 - Sales report
-8 - Exit
+- 1-) Rooms
+- 2-) Pasta
+- 3-) Burger
+- 4-) Noodles
+- 5-) Shake
+- 6-) Chicken-roll
+- 7-) Sales report
+- 8-) Exit
 
 ---
 
